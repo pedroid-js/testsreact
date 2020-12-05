@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import Form from './Form'
 
 function App() {
+  const [values, setValue] = React.useState({
+    name: '',
+    surname: ''
+  })
+
+  const handleName = (e) => setValue(prevStates => ({ ...prevStates, name: e.target.value }))
+  const handleSurname = (e) => setValue(prevStates => ({ ...prevStates, surname: e.target.value }))
+
+  React.useEffect(() => {
+    console.clear()
+    console.log('name: ', values.name)
+    console.log('surname: ', values.surname)
+  }, [values.name, values.surname])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form 
+        handleName={handleName} 
+        handleSurname={handleSurname} 
+        value={values}
+      />
     </div>
   );
 }
